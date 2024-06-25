@@ -5,7 +5,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 use App\Models\Category;
-use App\Models\Subcategory;
 
 return new class extends Migration {
     /**
@@ -18,12 +17,11 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description');
             $table->foreignIdFor(Category::class);
-            $table->foreignIdFor(Subcategory::class);
             $table->decimal('price');
             $table->float('discount_percentage');
             $table->integer('rating');
             $table->integer('stock');
-            $table->string('brand');
+            $table->string('brand')->nullable();
             $table->string('sku');
             $table->integer('weight');
             $table->string('shipping_information');
