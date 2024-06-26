@@ -3,6 +3,7 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Users from "./pages/Users";
 import Signup from "./pages/Signup";
+import Products from "./pages/Products";
 import NotFound from "./pages/404";
 import Dashboard from "./pages/Dashboard";
 
@@ -16,15 +17,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="/users" />,
-      },
-      {
-        path: "/users",
-        element: <Users />,
+        element: <Navigate to="/dashboard" />,
       },
       {
         path: "/dashboard",
         element: <Dashboard />,
+        children: [
+          {
+            path: "/dashboard/products",
+            element: <Products />,
+          },
+        ],
       },
     ],
   },

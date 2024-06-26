@@ -1,5 +1,10 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <div className="px-6 py-8">
+      <Outlet />
+    </div>
+  );
 }
