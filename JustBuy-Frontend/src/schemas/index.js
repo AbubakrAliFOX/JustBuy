@@ -42,6 +42,17 @@ export const productSchema = Yup.object({
   thumbnail_url: Yup.string().required("Thumbnail url is required"),
 });
 
+export const categorySchema = Yup.object({
+  name: Yup.string()
+    .min(2, "Name is too short")
+    .max(50, "Name is too Long!")
+    .required("Name is required"),
+  subcategory: Yup.string()
+    .min(2, "Subcategory is too short")
+    .max(30, "Subcategory is too Long!")
+    .required("Subcategory is required"),
+});
+
 const signupSchema = Yup.object({
   name: Yup.string()
     .min(2, "Name is too short")

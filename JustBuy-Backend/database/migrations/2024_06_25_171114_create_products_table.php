@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->decimal('price');
             $table->float('discount_percentage');
             $table->integer('stock');

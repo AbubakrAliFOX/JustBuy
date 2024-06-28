@@ -3,6 +3,7 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 import FormButton from "./form/FormButton";
 import DeleteProductModal from "./DeleteProductModal";
+import DeleteCategoryModal from "./DeleteCategoryModal";
 
 export default function CategoryRow({ data, setModal }) {
   const [deleteModal, setDeleteModal] = useState({
@@ -38,7 +39,7 @@ export default function CategoryRow({ data, setModal }) {
           Delete
         </FormButton>
       </td>
-      <DeleteProductModal
+      <DeleteCategoryModal
         deleteModal={deleteModal}
         setDeleteModal={setDeleteModal}
       />

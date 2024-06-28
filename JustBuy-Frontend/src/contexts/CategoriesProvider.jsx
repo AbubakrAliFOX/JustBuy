@@ -16,7 +16,8 @@ export const CategoryProvider = ({ children }) => {
         },
       })
       .then((response) => {
-        setCategories(response.data.data.categorys);
+        console.log(response);
+        setCategories(response.data.data.categories);
       })
       .catch((err) => console.log(err));
   };

@@ -45,14 +45,14 @@ export default function CategoriesDisplay() {
           </tr>
         </thead>
         <tbody>
-          {/* {categories.map((el) => (
+          {categories.map((el) => (
             <CategoryRow
               modal={modal}
               setModal={setModal}
               key={el.id}
               data={el}
             />
-          ))} */}
+          ))}
         </tbody>
         <CategoryModal
           modal={modal}
