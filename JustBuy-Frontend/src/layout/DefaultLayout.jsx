@@ -3,6 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../contexts/ContextProvider";
 import SideBar from "../components/SideBar";
 import Navbar from "../components/Navbar";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function DefaultLayout() {
   const { user, token } = useStateContext();
@@ -12,7 +14,7 @@ export default function DefaultLayout() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex h-screen" id="main">
       <SideBar />
       <section className="w-full">
         <Navbar />
@@ -20,6 +22,7 @@ export default function DefaultLayout() {
           <Outlet />
         </main>
       </section>
+      <ToastContainer position="bottom-right" />
     </div>
   );
 }

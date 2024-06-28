@@ -13,8 +13,10 @@ export default function Navbar() {
         <p className="text-black font-bold text-lg">User: {user.name}</p>
       </div>
       <div>
-        <Button to="/settings">Settings</Button>
-        <Button to="/logout">Logout</Button>
+        <Button href="/settings">Settings</Button>
+        <Button type="delete" href="/logout">
+          Logout
+        </Button>
       </div>
     </nav>
   );

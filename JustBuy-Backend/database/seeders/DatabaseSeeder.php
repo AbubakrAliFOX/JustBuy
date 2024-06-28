@@ -33,7 +33,6 @@ class DatabaseSeeder extends Seeder
                 'description' => $product['description'],
                 'price' => $product['price'],
                 'discount_percentage' => $product['discountPercentage'],
-                'rating' => $product['rating'],
                 'stock' => $product['stock'],
                 'category_id' => $categoryId,
                 'brand' => $product['brand'] ?? null,

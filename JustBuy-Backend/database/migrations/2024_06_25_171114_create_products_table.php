@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Subcategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +20,6 @@ return new class extends Migration {
             $table->foreignIdFor(Category::class);
             $table->decimal('price');
             $table->float('discount_percentage');
-            $table->integer('rating');
             $table->integer('stock');
             $table->string('brand')->nullable();
             $table->string('sku');
