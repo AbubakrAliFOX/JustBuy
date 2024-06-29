@@ -7,10 +7,14 @@ const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   const refreshProducts = () => {
+    let completeUrl = search
+      ? `${url}/products?q=${search}`
+      : `${url}/products`;
     axios
-      .get(`${url}/products`, {
+      .get(completeUrl, {
         headers: {
           Authorization: `Bearer `,
         },
@@ -22,11 +26,11 @@ export const ProductProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    refreshProducts();
-  }, []);
+    refreshProducts(search);
+  }, [search]);
 
   return (
-    <ProductContext.Provider value={{ products, refreshProducts }}>
+    <ProductContext.Provider value={{ products, refreshProducts, setSearch }}>
       {children}
     </ProductContext.Provider>
   );

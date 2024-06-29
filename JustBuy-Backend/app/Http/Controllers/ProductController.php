@@ -18,10 +18,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $queryString = $request->input('q');
+
+
         $products = Product::with('category')
             ->select('id', 'name', 'category_id', 'stock', 'thumbnail_url', 'price', 'discount_percentage')
+            ->when($queryString, function ($query, $queryString) {
+                // Add condition to filter by product name
+                return $query->where('name', 'like', '%' . $queryString . '%');
+            })
             ->orderBy('name', 'asc')
             ->get();
         //dd($products);
