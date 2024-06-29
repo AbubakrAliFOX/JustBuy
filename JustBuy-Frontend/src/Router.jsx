@@ -10,6 +10,8 @@ import DefaultLayout from "./layout/DefaultLayout";
 import GuestLayout from "./layout/GuestLayout";
 import ProductsIndex from "./components/ProductsIndex";
 import CategoriesIndex from "./components/CategoriesIndex";
+import Index from "./pages/Index";
+import CheckOut from "./pages/CheckOut";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/buy",
+        element: <Index />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckOut />,
       },
     ],
   },

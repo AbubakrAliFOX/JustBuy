@@ -21,7 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('category')
-            ->select('id', 'name', 'category_id', 'stock', 'thumbnail_url')
+            ->select('id', 'name', 'category_id', 'stock', 'thumbnail_url', 'price', 'discount_percentage')
             ->orderBy('name', 'asc')
             ->get();
         //dd($products);
