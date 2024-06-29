@@ -7,18 +7,25 @@ const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState({
+    searchTerm: "",
+    minPrice: 0,
+    maxPrice: 0,
+  });
 
   const refreshProducts = () => {
-    let completeUrl = search
-      ? `${url}/products?q=${search}`
-      : `${url}/products`;
+    // let completeUrl = search.searchTerm
+    //   ? `${url}/products?q=${search.searchTerm}`
+    //   : `${url}/products`;
     axios
-      .get(completeUrl, {
-        headers: {
-          Authorization: `Bearer `,
-        },
-      })
+      .get(
+        `${url}/products?q=${search.searchTerm}&min=${search.minPrice}&max=${search.maxPrice}`,
+        {
+          headers: {
+            Authorization: `Bearer `,
+          },
+        }
+      )
       .then((response) => {
         setProducts(response.data.data.products);
       })

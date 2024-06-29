@@ -15,12 +15,20 @@ class ProductController extends Controller
 {
     use HttpRequests;
 
+    private function getFinalPrice($price, $discountPercentage)
+    {
+        $finalPrice = ($price - ($discountPercentage / 100) * $price);
+        return number_format($finalPrice, 2);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $queryString = $request->input('q');
+        $minPrice = $request->input('min');
+        $maxPrice = $request->input('max');
 
 
         $products = Product::with('category')
@@ -28,6 +36,14 @@ class ProductController extends Controller
             ->when($queryString, function ($query, $queryString) {
                 // Add condition to filter by product name
                 return $query->where('name', 'like', '%' . $queryString . '%');
+            })
+            ->when($minPrice, function ($query, $minPrice) {
+                // Add condition to filter by product name
+                return $query->whereRaw('(price - (price * discount_percentage / 100)) > ?', [$minPrice]);
+            })
+            ->when($maxPrice, function ($query, $maxPrice) {
+                // Add condition to filter by product name
+                return $query->whereRaw('(price - (price * discount_percentage / 100)) < ?', [$maxPrice]);
             })
             ->orderBy('name', 'asc')
             ->get();
