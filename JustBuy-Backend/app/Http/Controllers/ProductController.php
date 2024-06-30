@@ -15,12 +15,6 @@ class ProductController extends Controller
 {
     use HttpRequests;
 
-    private function getFinalPrice($price, $discountPercentage)
-    {
-        $finalPrice = ($price - ($discountPercentage / 100) * $price);
-        return number_format($finalPrice, 2);
-    }
-
     /**
      * Display a listing of the resource.
      */

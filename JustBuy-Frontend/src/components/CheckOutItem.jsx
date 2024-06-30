@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import CartContext from "../contexts/CartProvider";
 
-export default function CheckOutItem({ data, setCart }) {
+export default function CheckOutItem({ data }) {
+  const { cart, setCart } = useContext(CartContext);
+
   const handleClick = () => {
     setCart((prev) => {
       let rest = prev.filter((el) => el.name !== data.name);
@@ -17,7 +19,7 @@ export default function CheckOutItem({ data, setCart }) {
       <img
         className="cursor-pointer w-6 h-6"
         onClick={handleClick}
-        src="trash.svg"
+        src="plus.svg"
         alt="trash"
         id="remove"
       />

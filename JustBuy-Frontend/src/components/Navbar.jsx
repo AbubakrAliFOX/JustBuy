@@ -1,63 +1,79 @@
-import React, { useContext } from "react";
-import { useStateContext } from "../contexts/ContextProvider";
+import React from "react";
+import { useAuthContext } from "../contexts/AuthProvider";
 import Button from "./Button";
-import Cart from "./Cart";
-import CartContext from "../contexts/CartProvider";
-import CartItem from "./CartItem";
 import { Link } from "react-router-dom";
+import Notify from "./Notify";
+import axios from "axios";
+import NavbarCart from "./NavbarCart";
+import { useVerificationContext } from "../contexts/VerificationProvider";
+
+const url = import.meta.env.VITE_MAIN_URL;
 
 export default function Navbar() {
-  const { user, token } = useStateContext();
-  const { cart, setCart } = useContext(CartContext);
+  const { user, setUser, token, setToken } = useAuthContext();
 
-  const logOut = (e) => {
-    e.preventDefault();
-  };
+  const { isEmailVerified, setIsEmailVerified } = useVerificationContext();
+
+  console.log("Haaaaa", localStorage.getItem("EmailVerified"));
+  console.log("Haaaaa", user);
+
+  async function handleLogout() {
+    try {
+      const response = await axios.post(`${url}/logout`, user, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(null);
+      setToken(null);
+      setIsEmailVerified(false);
+      Notify("Log out was successful", "success");
+    } catch (error) {
+      console.log("Couldn't Logout", error);
+    }
+  }
   return (
     <nav className="bg-stone-100 h-20 px-6 text-white text-center flex justify-between items-center">
       <div>
         <h1 className="text-black font-bold text-2xl">
-          {token ? `User: ${user.name}` : "JustBuy.com"}
+          <Link to={token ? `/settings` : "/"}>
+            {token && user.name && isEmailVerified
+              ? `User: ${user.name}`
+              : "JustBuy.com"}
+          </Link>
         </h1>
       </div>
       {token ? (
         <div className="flex justify-start gap-2">
-          <Button href="/settings">Settings</Button>
-          <Button type="delete" href="/logout">
-            Logout
-          </Button>
+          <NavbarCart />
+          <Link
+            className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+            to="/settings"
+          >
+            Settings
+          </Link>
+          <Link
+            className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+            to="/verified/orders"
+          >
+            My Orders
+          </Link>
+          <Button onClick={handleLogout}>Logout</Button>
         </div>
       ) : (
         <div className="flex justify-start gap-2">
-          <div className="relative group text-black">
-            <Cart />
-            <ul className="hidden absolute w-[300px] text-center left-1/2 transform -translate-x-1/2 z-10 bg-white rounded-lg group-hover:block group-focus:block">
-              {cart.length > 0 ? (
-                cart.map((el, idx) => (
-                  <CartItem
-                    key={(idx + 1) * 0.35}
-                    setCart={setCart}
-                    price={el.price}
-                    name={el.name}
-                    qty={el.qty}
-                  />
-                ))
-              ) : (
-                <li>No Items In The Cart</li>
-              )}
-              {cart.length > 0 && (
-                <Link
-                  className="py-3 w-full block rounded-lg bg-purple-700 hover:opacity-80 text-white"
-                  type="submit"
-                  to="/checkout"
-                >
-                  Checkout
-                </Link>
-              )}
-            </ul>
-          </div>
-          <Button href="/settings">Login</Button>
-          <Button href="/logout">Signup</Button>
+          <Link
+            className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+            to="/login"
+          >
+            Login
+          </Link>
+          <Link
+            className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+            to="/signup"
+          >
+            Signup
+          </Link>
         </div>
       )}
     </nav>

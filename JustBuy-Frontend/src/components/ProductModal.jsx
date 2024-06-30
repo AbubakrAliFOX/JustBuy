@@ -6,15 +6,18 @@ import { Formik, Form } from "formik";
 import { productSchema } from "../schemas";
 import Modal from "react-modal";
 import Button from "./Button";
-import { customStyles } from "../utils";
+import { customStyles } from "../utils/schemas";
 import Notify from "./Notify";
 import ProductContext from "../contexts/ProductsProvider";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
 Modal.setAppElement("div");
 
 export default function ProductModal({ modal, setModal, product, setProduct }) {
+  const { token } = useAuthContext();
+
   const { refreshProducts } = useContext(ProductContext);
 
   const [loading, setLoading] = useState(false);
@@ -27,6 +30,7 @@ export default function ProductModal({ modal, setModal, product, setProduct }) {
           headers: {
             Accept: "application/vnd.api+json",
             "Content-Type": "application/vnd.api+json",
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(({ data }) => {
@@ -51,16 +55,32 @@ export default function ProductModal({ modal, setModal, product, setProduct }) {
       let response;
       if (modal.mode == "edit") {
         console.log("Edit");
-        response = await axios.patch(`${url}/products/${modal.productID}`, {
-          ...values,
-        });
+        response = await axios.patch(
+          `${url}/products/${modal.productID}`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         Notify(response.data.status, "success");
         console.log(response.data.status);
       } else {
         console.log("New");
-        response = await axios.post(`${url}/products`, {
-          ...values,
-        });
+        response = await axios.post(
+          `${url}/products`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         Notify(response.data.status, "success");
       }
     } catch (error) {

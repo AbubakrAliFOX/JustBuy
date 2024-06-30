@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Modal from "react-modal";
 import Button from "./Button";
-import { deleteCustomStyles } from "../utils";
+import { deleteCustomStyles } from "../utils/schemas";
 import axios from "axios";
 const url = import.meta.env.VITE_MAIN_URL;
 import Notify from "./Notify";

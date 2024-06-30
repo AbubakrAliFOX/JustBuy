@@ -1,11 +1,14 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useAuthContext } from "./AuthProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
+  const { token } = useAuthContext();
+
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState({
     searchTerm: "",
@@ -22,7 +25,7 @@ export const ProductProvider = ({ children }) => {
         `${url}/products?q=${search.searchTerm}&min=${search.minPrice}&max=${search.maxPrice}`,
         {
           headers: {
-            Authorization: `Bearer `,
+            Authorization: `Bearer ${token}`,
           },
         }
       )

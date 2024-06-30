@@ -53,17 +53,26 @@ export const categorySchema = Yup.object({
     .required("Subcategory is required"),
 });
 
-const signupSchema = Yup.object({
+export const signupSchema = Yup.object({
   name: Yup.string()
     .min(2, "Name is too short")
     .max(50, "Name is too Long!")
     .required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  phone: Yup.string()
+    .length(10, "Phone number should contain 10 digits")
+    .required("Phone number is required"),
   password: Yup.string()
     .min(6, "Password must have at least 6 charachters")
     .required("Password is required"),
+  password_confirmation: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Password confirmation is required"),
+});
+
+export const loginSchema = Yup.object({
   email: Yup.string().email("Invalid email").required("Email is required"),
-  address: Yup.string()
-    .min(8, "The address is too short")
-    .max(50, "The address is too long")
-    .required("Address is required"),
+  password: Yup.string()
+    .min(6, "Password must have at least 6 charachters")
+    .required("Password is required"),
 });

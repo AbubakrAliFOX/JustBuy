@@ -6,9 +6,10 @@ import { Formik, Form } from "formik";
 import { categorySchema } from "../schemas";
 import Modal from "react-modal";
 import Button from "./Button";
-import { customStyles } from "../utils";
+import { customStyles } from "../utils/schemas";
 import Notify from "./Notify";
 import CategoryContext from "../contexts/CategoriesProvider";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
@@ -20,6 +21,7 @@ export default function CategoryModal({
   category,
   setCategory,
 }) {
+  const { token } = useAuthContext();
   const { refreshCategories } = useContext(CategoryContext);
 
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,7 @@ export default function CategoryModal({
       axios
         .get(`${url}/categories/${modal.categoryID}`, {
           headers: {
+            Authorization: `Bearer ${token}`,
             Accept: "application/vnd.api+json",
             "Content-Type": "application/vnd.api+json",
           },
@@ -56,16 +59,32 @@ export default function CategoryModal({
       let response;
       if (modal.mode == "edit") {
         console.log("Edit");
-        response = await axios.patch(`${url}/categories/${modal.categoryID}`, {
-          ...values,
-        });
+        response = await axios.patch(
+          `${url}/categories/${modal.categoryID}`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         Notify(response.data.status, "success");
         console.log(response.data.status);
       } else {
         console.log("New");
-        response = await axios.post(`${url}/categories`, {
-          ...values,
-        });
+        response = await axios.post(
+          `${url}/categories`,
+          {
+            ...values,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         Notify(response.data.status, "success");
       }
     } catch (error) {

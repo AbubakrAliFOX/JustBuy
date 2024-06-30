@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Traits\HttpRequests;
 use App\Models\User;
 use Auth;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -42,16 +43,26 @@ class AuthController extends Controller
             'phone' => $request->phone
         ]);
 
+        event(new Registered($user));
+
         return $this->success([
             'user' => $user,
             'token' => $user->createToken('API Token of ' . $user->name)
                 ->plainTextToken
         ]);
+        // return $this->success("", "Check your email for verification.");
     }
 
     public function logout(Request $request)
     {
-        return response()->json('Logout');
+        $user = $request->user();
+        $user->currentAccessToken()->delete();
+        return $this->success('', '', 200);
+
+    }
+    public function user(Request $request)
+    {
+        return $request->user();
 
     }
 }

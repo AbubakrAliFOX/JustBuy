@@ -3,10 +3,14 @@ import CartContext from "../contexts/CartProvider";
 import CheckOutItem from "../components/CheckOutItem";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuthContext } from "../contexts/AuthProvider";
+import Notify from "../components/Notify";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function CheckOut() {
+  const { token } = useAuthContext();
+
   let totalPrice = 0;
   const natigate = useNavigate();
   const { cart, setCart } = useContext(CartContext);
@@ -16,22 +20,32 @@ export default function CheckOut() {
 
     if (!(cart.length > 0)) {
       console.log("Hi");
-      natigate("/buy");
+      natigate("/");
     }
   }, [cart]);
 
   const handleSubmit = async () => {
-    const response = await axios.post(`${url}/orders`, cart);
-    console.log(response);
+    try {
+      const response = await axios.post(`${url}/orders`, cart, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      Notify("Your order has been placed successfully", "success");
+      console.log(response.data);
+    } catch (error) {
+      Notify("An error occured", "error");
+      console.log(error.response.data);
+    }
   };
 
   return (
-    <main className="mt-8 w-8/12 mx-auto">
+    <section className="w-8/12 mx-auto">
       <h1 className="text-xl mb-6">Order Summary:</h1>
       <section>
         {cart.map((el) => {
           totalPrice += el.price * el.qty;
-          return <CheckOutItem setCart={setCart} data={el} />;
+          return <CheckOutItem data={el} />;
         })}
         <h2>
           Total amount:{" "}
@@ -48,6 +62,6 @@ export default function CheckOut() {
           Order Now
         </button>
       </section>
-    </main>
+    </section>
   );
 }
