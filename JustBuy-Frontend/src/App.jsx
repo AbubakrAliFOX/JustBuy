@@ -16,6 +16,7 @@ import { RequireVerification } from "./components/VerificationComponents";
 import OrdersDisplay from "./components/OrdersDisplay";
 import OrdersTable from "./components/OrdersTable";
 import EmailVerified from "./components/EmailVerified";
+import { RequireAdmin } from "./components/RequireAdmin";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           {/* Protected */}
           <Route element={<RequireAuth />}>
             <Route path="verified" element={<RequireVerification />}>
-              <Route path="dashboard" element={<Dashboard />}>
+              <Route path="dashboard" element={<RequireAdmin />}>
                 <Route path="products" element={<ProductsIndex />} />
                 <Route path="categories" element={<CategoriesIndex />} />
                 <Route path="orders" element={<OrdersTable />} />

@@ -10,7 +10,7 @@ import { useVerificationContext } from "../contexts/VerificationProvider";
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function Navbar() {
-  const { user, setUser, token, setToken } = useAuthContext();
+  const { user, setUser, token, setToken, isAdmin } = useAuthContext();
 
   const { isEmailVerified, setIsEmailVerified } = useVerificationContext();
 
@@ -47,19 +47,21 @@ export default function Navbar() {
       </div>
       {token ? (
         <div className="flex justify-start gap-2">
-          <NavbarCart />
+          {!isAdmin && <NavbarCart />}
           <Link
             className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
             to="/settings"
           >
             Settings
           </Link>
-          <Link
-            className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
-            to="/verified/orders"
-          >
-            My Orders
-          </Link>
+          {!isAdmin && (
+            <Link
+              className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+              to="/verified/orders"
+            >
+              My Orders
+            </Link>
+          )}
           <Button onClick={handleLogout}>Logout</Button>
         </div>
       ) : (

@@ -23,7 +23,7 @@ export const OrdersProvider = ({ children }) => {
         setOrders(response.data.data.orders);
       })
       .catch((err) => console.log(err));
-  }, [orders]);
+  }, []);
 
   return (
     <OrderContext.Provider value={{ orders }}>{children}</OrderContext.Provider>

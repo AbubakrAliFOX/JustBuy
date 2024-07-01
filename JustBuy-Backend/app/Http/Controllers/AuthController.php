@@ -45,10 +45,11 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
+        $abilites = ['place-order', 'view-own-orders', 'update-profile'];
+
         return $this->success([
             'user' => $user,
-            'token' => $user->createToken('API Token of ' . $user->name)
-                ->plainTextToken
+            'token' => $user->createToken('API Token of ' . $user->name, $abilites)->plainTextToken
         ]);
         // return $this->success("", "Check your email for verification.");
     }
@@ -63,6 +64,11 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return $request->user();
+
+    }
+    public function isAdmin(Request $request)
+    {
+        return $this->success($request->user()->tokenCan('admin'));
 
     }
 }
