@@ -7,6 +7,7 @@ import axios from "axios";
 import Notify from "../components/Notify";
 import bindUser from "../utils/bindUser";
 import { useAuthContext } from "../contexts/AuthProvider";
+import { Link } from "react-router-dom";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
@@ -37,6 +38,7 @@ export default function Login() {
           <div className="w-full mt-3">
             <FormField name="email" />
             <FormField type="password" name="password" />
+            <Link to="/forgot-password">Forgot password?</Link>
             <div className="py-4">
               <FormButton disabled={isSubmitting} href="#" type="submit">
                 Login

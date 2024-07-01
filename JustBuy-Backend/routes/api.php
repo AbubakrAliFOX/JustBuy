@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VerificationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -21,6 +22,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //is admin request
     Route::get('/admin/verify', [AuthController::class, 'isAdmin']);
+
+    // reset password
+    Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
 });
@@ -49,8 +53,11 @@ Route::get('/orders', [OrderController::class, 'index'])
 
 Route::get('/products', [ProductController::class, 'index']);
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::middleware(['guest'])->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
 
+    Route::post('/password/email', [PasswordResetController::class, 'sendLink'])->name('password.reset');
+});
 
-
+Route::post('/password/reset', [PasswordResetController::class, 'reset']);

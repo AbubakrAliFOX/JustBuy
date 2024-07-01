@@ -76,3 +76,16 @@ export const loginSchema = Yup.object({
     .min(6, "Password must have at least 6 charachters")
     .required("Password is required"),
 });
+
+export const sendPasswordLinkSchema = Yup.object({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+});
+
+export const resetPasswordSchema = Yup.object({
+  password: Yup.string()
+    .min(6, "Password must have at least 6 charachters")
+    .required("Password is required"),
+  password_confirmation: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Password confirmation is required"),
+});
