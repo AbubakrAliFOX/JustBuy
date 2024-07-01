@@ -13,25 +13,24 @@ export const RequireVerification = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
-      axios
-        .get(`${url}/email/verify`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then(({ data }) => {
-          if (data.verified == true) {
-            setIsEmailVerified(data.verified);
-            console.log("Is request?", data.verified);
-          } else {
-            //setIsEmailVerified(false);
-            navigate("/email/verify");
-          }
-        });
-    } catch (error) {
-      console.log("errrr", error);
-    }
+    axios
+      .get(`${url}/email/verify`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        if (data.verified == true) {
+          setIsEmailVerified(data.verified);
+          console.log("Is request?", data.verified);
+        } else {
+          //setIsEmailVerified(false);
+          navigate("/email/verify");
+        }
+      })
+      .catch((error) => {
+        console.log("errrr", error);
+      });
   }, [isEmailVerified, token]);
 
   useEffect(() => {

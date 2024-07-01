@@ -12,20 +12,18 @@ export const RequireAuth = () => {
   }
 
   useEffect(() => {
-    async function getUserInfo() {
-      try {
-        const response = await axios.get(`${url}/user`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    axios
+      .get(`${url}/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
         setUser(response.data);
-      } catch (error) {
+      })
+      .catch(() => {
         console.log("errrr");
-      }
-    }
-
-    getUserInfo();
+      });
   }, []);
 
   return token ? <Outlet /> : <Navigate to="/login" />;

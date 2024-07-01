@@ -18,25 +18,27 @@ export default function Navbar() {
   console.log("Haaaaa", user);
 
   async function handleLogout() {
-    try {
-      const response = await axios.post(`${url}/logout`, user, {
+    axios
+      .post(`${url}/logout`, user, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+      })
+      .then(() => {
+        setUser(null);
+        setToken(null);
+        setIsEmailVerified(false);
+        Notify("Log out was successful", "success");
+      })
+      .catch((error) => {
+        console.log("Couldn't Logout", error);
       });
-      setUser(null);
-      setToken(null);
-      setIsEmailVerified(false);
-      Notify("Log out was successful", "success");
-    } catch (error) {
-      console.log("Couldn't Logout", error);
-    }
   }
   return (
     <nav className="bg-stone-100 h-20 px-6 text-white text-center flex justify-between items-center">
       <div>
         <h1 className="text-black font-bold text-2xl">
-          <Link to={token ? `/settings` : "/"}>
+          <Link to="/">
             {token && user.name && isEmailVerified
               ? `User: ${user.name}`
               : "JustBuy.com"}

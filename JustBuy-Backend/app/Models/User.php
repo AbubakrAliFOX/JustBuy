@@ -53,25 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+
     public function sendEmailVerificationNotification()
     {
-        $verificationUrl = $this->generateVerificationUrl($this);
-        $this->notify(new VerifyEmailWithCustomUrl($verificationUrl));
+        $this->notify(new VerifyEmailWithCustomUrl());
     }
 
-    protected function generateVerificationUrl($notifiable)
-    {
-        $temporarySignedURL = URL::temporarySignedRoute(
-            'verification.verify',
-            Carbon::now()->addMinutes(60),
-            ['id' => $notifiable->getKey(), 'hash' => sha1($notifiable->getEmailForVerification())]
-        );
-
-        // Replace the base URL with your frontend URL
-        return str_replace(
-            url('/api'),
-            env('FRONTEND_URL'),
-            $temporarySignedURL
-        );
-    }
 }

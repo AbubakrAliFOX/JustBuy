@@ -14,6 +14,8 @@ import ConfirmEmail from "./components/ConfirmEmail";
 import { RequireAuth, NotRequireAuth } from "./components/AuthComponents";
 import { RequireVerification } from "./components/VerificationComponents";
 import OrdersDisplay from "./components/OrdersDisplay";
+import OrdersTable from "./components/OrdersTable";
+import EmailVerified from "./components/EmailVerified";
 
 function App() {
   return (
@@ -29,11 +31,13 @@ function App() {
               <Route path="dashboard" element={<Dashboard />}>
                 <Route path="products" element={<ProductsIndex />} />
                 <Route path="categories" element={<CategoriesIndex />} />
+                <Route path="orders" element={<OrdersTable />} />
               </Route>
               <Route path="orders" element={<OrdersDisplay />} />
               <Route path="checkout" element={<CheckOut />} />
             </Route>
             <Route path="email/verify" element={<ConfirmEmail />} />
+            <Route path="email/verify/:id/:hash" element={<EmailVerified />} />
           </Route>
 
           {/* Can't access if logged in */}

@@ -33,6 +33,8 @@ export default function CheckOut() {
       });
       Notify("Your order has been placed successfully", "success");
       console.log(response.data);
+      setCart([]);
+      natigate("/");
     } catch (error) {
       Notify("An error occured", "error");
       console.log(error.response.data);

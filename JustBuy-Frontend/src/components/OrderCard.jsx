@@ -1,7 +1,9 @@
 import React from "react";
 import OrderItem from "./OrderItem";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 export default function OrderCard({ data }) {
+  const { user } = useAuthContext();
   return (
     <div className="border border-b-0 rounded-xl overflow-clip mb-6">
       <div className="bg-slate-400 flex flex-wrap justify-start pl-4">
@@ -22,6 +24,12 @@ export default function OrderCard({ data }) {
             <b>Total</b>
           </p>
           <p>USD {data.total_price}</p>
+        </div>
+        <div className="mt-2 mr-6 mb-2">
+          <p>
+            <b>User ID</b>
+          </p>
+          <p>{user.id}</p>
         </div>
         {/* <div className="mt-2 mr-6 mb-2">
           <p>
