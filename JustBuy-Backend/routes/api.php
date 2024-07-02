@@ -5,6 +5,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,8 @@ Route::middleware(['auth:sanctum', 'verified', 'ability:admin'])->group(function
     Route::patch('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
     // Route::get('/orders', [OrderController::class, 'user_orders']);
+
+
 });
 
 Route::post('/orders', [OrderController::class, 'store'])
@@ -59,5 +62,12 @@ Route::middleware(['guest'])->group(function () {
 
     Route::post('/password/email', [PasswordResetController::class, 'sendLink'])->name('password.reset');
     Route::post('/password/reset', [PasswordResetController::class, 'reset']);
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::post('/wishlist', [WishlistController::class, 'addToWishlist']);
+    Route::get('/wishlist', [WishlistController::class, 'viewWishlist']);
+    Route::delete('/wishlist/{productId}', [WishlistController::class, 'removeFromWishlist']);
+    Route::get('/wishlist/by-category', [WishlistController::class, 'viewWishlistByCategory']);
 });
 
