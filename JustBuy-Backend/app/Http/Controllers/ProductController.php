@@ -41,7 +41,6 @@ class ProductController extends Controller
             })
             ->orderBy('name', 'asc')
             ->get();
-        //dd($products);
 
         return $this->success([
             'products' => $products
@@ -70,12 +69,6 @@ class ProductController extends Controller
                 $subcategory = Subcategory::firstOrCreate(['name' => $item, 'category_id' => $category->id]);
                 $subcategoryIds[] = $subcategory->id;
             }
-
-            // $subcategory = Subcategory::firstOrCreate(
-            //     ['name' => strtolower($request['subcategory'])],
-            //     ['category_id' => $category->id]
-            // );
-
             $product = Product::create([
                 'name' => $request->name,
                 'description' => $request->description,

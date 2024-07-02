@@ -59,11 +59,6 @@ class OrderController extends Controller
         }
     }
 
-    // public function user_orders(Request $request)
-    // {
-
-    // }
-
     /**
      * Store a newly created resource in storage.
      */

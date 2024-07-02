@@ -56,7 +56,6 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $user->createToken('API Token of ' . $user->name, $abilities)->plainTextToken
         ]);
-        // return $this->success("", "Check your email for verification.");
     }
 
     public function logout(Request $request)
