@@ -1,21 +1,26 @@
-import React from "react";
-import { useAuthContext } from "../contexts/AuthProvider";
-import Button from "./Button";
+import React, { useEffect } from "react";
+import { useAuthContext } from "../../contexts/AuthProvider";
+import Button from "../Button";
 import { Link } from "react-router-dom";
-import Notify from "./Notify";
+import Notify from "../Notify";
 import axios from "axios";
 import NavbarCart from "./NavbarCart";
-import { useVerificationContext } from "../contexts/VerificationProvider";
+import { useVerificationContext } from "../../contexts/VerificationProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function Navbar() {
-  const { user, setUser, token, setToken, isAdmin } = useAuthContext();
+  const { user, setUser, token, setToken, isAdmin, checkIsAdmin } =
+    useAuthContext();
 
   const { isEmailVerified, setIsEmailVerified } = useVerificationContext();
 
   console.log("Haaaaa", localStorage.getItem("EmailVerified"));
   console.log("Haaaaa", user);
+
+  useEffect(() => {
+    checkIsAdmin();
+  }, []);
 
   async function handleLogout() {
     axios

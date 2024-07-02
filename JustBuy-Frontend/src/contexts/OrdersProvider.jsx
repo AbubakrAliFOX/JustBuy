@@ -11,7 +11,7 @@ export const OrdersProvider = ({ children }) => {
 
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
+  const refreshOrders = () => {
     axios
       .get(`${url}/orders`, {
         headers: {
@@ -23,10 +23,16 @@ export const OrdersProvider = ({ children }) => {
         setOrders(response.data.data.orders);
       })
       .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    refreshOrders();
   }, []);
 
   return (
-    <OrderContext.Provider value={{ orders }}>{children}</OrderContext.Provider>
+    <OrderContext.Provider value={{ orders, refreshOrders }}>
+      {children}
+    </OrderContext.Provider>
   );
 };
 

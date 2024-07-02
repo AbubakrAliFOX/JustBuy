@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CartContext from "../contexts/CartProvider";
+import CartContext from "../../contexts/CartProvider";
 
 export default function CheckOutItem({ data }) {
   const { cart, setCart } = useContext(CartContext);
@@ -19,7 +19,7 @@ export default function CheckOutItem({ data }) {
       <img
         className="cursor-pointer w-6 h-6"
         onClick={handleClick}
-        src="plus.svg"
+        src="https://www.svgrepo.com/show/533020/trash-list-alt.svg"
         alt="trash"
         id="remove"
       />

@@ -24,10 +24,15 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        $abilities = ['place-order', 'view-own-orders', 'update-profile'];
+
+        if ($user->is_admin) {
+            $abilities = ['admin'];
+        }
+
         return $this->success([
             'user' => $user,
-            'token' => $user->createToken('API Token of ' . $user->name)
-                ->plainTextToken
+            'token' => $user->createToken('API Token of ' . $user->name, $abilities)->plainTextToken
         ]);
 
     }
@@ -45,11 +50,11 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-        $abilites = ['place-order', 'view-own-orders', 'update-profile'];
+        $abilities = ['place-order', 'view-own-orders', 'update-profile'];
 
         return $this->success([
             'user' => $user,
-            'token' => $user->createToken('API Token of ' . $user->name, $abilites)->plainTextToken
+            'token' => $user->createToken('API Token of ' . $user->name, $abilities)->plainTextToken
         ]);
         // return $this->success("", "Check your email for verification.");
     }
@@ -68,7 +73,11 @@ class AuthController extends Controller
     }
     public function isAdmin(Request $request)
     {
-        return $this->success($request->user()->tokenCan('admin'));
+        if ($request->user()->tokenCan('admin')) {
+            return $this->success($request->user()->tokenCan('admin'));
+        } else {
+            return $this->error(null, 'Not Authorized');
+        }
 
     }
 }

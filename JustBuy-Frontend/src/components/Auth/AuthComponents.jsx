@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthProvider";
+import { useAuthContext } from "../../contexts/AuthProvider";
 import axios from "axios";
 import { useEffect } from "react";
 const url = import.meta.env.VITE_MAIN_URL;

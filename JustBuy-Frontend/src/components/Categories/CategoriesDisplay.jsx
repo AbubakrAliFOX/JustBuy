@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import CategoryModal from "./CategoryModal";
-import CategoryRow from "./CategoryRow";
-import CategoryContext from "../contexts/CategoriesProvider";
+import CategoryRow from "../Categories/CategoryRow";
+import CategoryContext from "../../contexts/CategoriesProvider";
 
 export default function CategoriesDisplay() {
   const [modal, setModal] = useState({

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ProductContext from "../contexts/ProductsProvider";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/Products/ProductCard";
 import SearchBar from "../components/SearchBar";
 
 export default function Index() {

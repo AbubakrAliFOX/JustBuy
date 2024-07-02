@@ -1,10 +1,10 @@
 import { Formik, Form } from "formik";
 import React from "react";
-import { sendPasswordLinkSchema } from "../schemas";
-import FormField from "./form/FormField";
-import FormButton from "./form/FormButton";
+import { sendPasswordLinkSchema } from "../../schemas";
+import FormField from "../form/FormField";
+import FormButton from "../form/FormButton";
 import axios from "axios";
-import Notify from "./Notify";
+import Notify from "../Notify";
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function ForgotPassword() {

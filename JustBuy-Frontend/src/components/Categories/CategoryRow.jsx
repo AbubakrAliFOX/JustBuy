@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import { Link } from "react-router-dom";
-import FormButton from "./form/FormButton";
-import DeleteProductModal from "./DeleteProductModal";
-import DeleteCategoryModal from "./DeleteCategoryModal";
+import FormButton from "../form/FormButton";
+import DeleteProductModal from "../Products/DeleteProductModal";
+import DeleteCategoryModal from "../Categories/DeleteCategoryModal";
 
 export default function CategoryRow({ data, setModal }) {
   const [deleteModal, setDeleteModal] = useState({

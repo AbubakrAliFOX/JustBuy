@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Notify from "./Notify";
+import Notify from "../Notify";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthProvider";
+import { useAuthContext } from "../../contexts/AuthProvider";
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function EmailVerified() {

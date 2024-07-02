@@ -1,5 +1,5 @@
 import React from "react";
-import AddToCart from "./AddToCart";
+import AddToCart from "../Cart/AddToCart";
 
 export default function ProductCard({ data }) {
   const priceAfterDiscount = (

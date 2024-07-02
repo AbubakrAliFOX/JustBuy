@@ -17,19 +17,31 @@ class OrderController extends Controller
     {
         try {
             $user = Auth::user();
-            $orders = Order::where('user_id', $user->id)
-                ->with([
+            if ($user->tokenCan('admin')) {
+                $orders = Order::with([
                     'products' => function ($query) {
                         $query->select('products.id', 'products.name', 'products.price');
                     }
                 ])
-                ->orderBy('date', 'desc')
-                ->get(['id', 'order_price', 'date']);
+                    ->orderBy('date', 'desc')
+                    ->get(['id', 'order_price', 'date', 'user_id']);
+            } else {
+                $orders = Order::where('user_id', $user->id)
+                    ->with([
+                        'products' => function ($query) {
+                            $query->select('products.id', 'products.name', 'products.price');
+                        }
+                    ])
+                    ->orderBy('date', 'desc')
+                    ->get(['id', 'order_price', 'date', 'user_id']);
+            }
+
 
             $formattedOrders = [];
             foreach ($orders as $order) {
                 $formattedOrder = [
                     'total_price' => $order->order_price,
+                    'user_id' => $order->user_id,
                     'date' => $order->date,
                     'products' => $order->products->map(function ($product) {
                         return [

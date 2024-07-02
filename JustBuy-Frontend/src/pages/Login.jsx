@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useContext } from "react";
 import FormField from "../components/form/FormField";
 import FormButton from "../components/form/FormButton";
 import { loginSchema } from "../schemas";
@@ -8,11 +8,15 @@ import Notify from "../components/Notify";
 import bindUser from "../utils/bindUser";
 import { useAuthContext } from "../contexts/AuthProvider";
 import { Link } from "react-router-dom";
+import { useVerificationContext } from "../contexts/VerificationProvider";
+import OrderContext from "../contexts/OrdersProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function Login() {
-  const { setUser, setToken } = useAuthContext();
+  const { setUser, setToken, checkIsAdmin } = useAuthContext();
+  const { checkIsEmailVerified } = useVerificationContext();
+  const { refreshOrders } = useContext(OrderContext);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const authData = await bindUser("login", values);
@@ -20,6 +24,9 @@ export default function Login() {
       console.log(authData);
       setUser(authData.user);
       setToken(authData.token);
+      checkIsAdmin();
+      checkIsEmailVerified();
+      refreshOrders();
     }
   };
 

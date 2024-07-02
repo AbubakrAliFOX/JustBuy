@@ -1,12 +1,12 @@
 import { Formik, Form } from "formik";
 import React from "react";
-import FormField from "./form/FormField";
-import { resetPasswordSchema } from "../schemas";
-import FormButton from "./form/FormButton";
+import FormField from "../form/FormField";
+import { resetPasswordSchema } from "../../schemas";
+import FormButton from "../form/FormButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuthContext } from "../contexts/AuthProvider";
-import Notify from "./Notify";
+import { useAuthContext } from "../../contexts/AuthProvider";
+import Notify from "../Notify";
 
 const url = import.meta.env.VITE_MAIN_URL;
 

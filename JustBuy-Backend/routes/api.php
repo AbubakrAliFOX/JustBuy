@@ -58,6 +58,6 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 
     Route::post('/password/email', [PasswordResetController::class, 'sendLink'])->name('password.reset');
+    Route::post('/password/reset', [PasswordResetController::class, 'reset']);
 });
 
-Route::post('/password/reset', [PasswordResetController::class, 'reset']);

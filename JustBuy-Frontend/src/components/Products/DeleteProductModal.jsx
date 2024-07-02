@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import Modal from "react-modal";
-import Button from "./Button";
-import { deleteCustomStyles } from "../utils/schemas";
+import Button from "../Button";
+import { deleteCustomStyles } from "../../utils/schemas";
 import axios from "axios";
 const url = import.meta.env.VITE_MAIN_URL;
-import Notify from "./Notify";
-import CategoryContext from "../contexts/CategoriesProvider";
+import Notify from "../Notify";
+import ProductContext from "../../contexts/ProductsProvider";
 
 Modal.setAppElement("div");
 
-export default function DeleteCategoryModal({ deleteModal, setDeleteModal }) {
-  const { refreshCategories } = useContext(CategoryContext);
+export default function DeleteProductModal({ deleteModal, setDeleteModal }) {
+  const { refreshProducts } = useContext(ProductContext);
 
   const closeModal = () => {
     setDeleteModal((prev) => {
@@ -20,11 +20,11 @@ export default function DeleteCategoryModal({ deleteModal, setDeleteModal }) {
 
   const handleDelete = () => {
     axios
-      .delete(`${url}/categories/${deleteModal.categoryID}`)
+      .delete(`${url}/products/${deleteModal.productID}`)
       .then(({ data }) => {
         closeModal();
         Notify(data.status, "success");
-        refreshCategories();
+        refreshProducts();
       });
     //   .catch(() => setLoading(false));
   };
@@ -35,9 +35,9 @@ export default function DeleteCategoryModal({ deleteModal, setDeleteModal }) {
       onAfterClose={closeModal}
       onRequestClose={() => setModal(false)}
       style={deleteCustomStyles}
-      contentLabel="Category"
+      contentLabel="Product"
     >
-      <h1>Are you sure you want to delete this category?</h1>
+      <h1>Are you sure you want to delete this product?</h1>
       <div className="mt-7">
         <Button onClick={handleDelete} type="delete">
           Delete

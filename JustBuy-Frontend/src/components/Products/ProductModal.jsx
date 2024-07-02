@@ -1,55 +1,51 @@
 import React, { useEffect, useState, useContext } from "react";
-import FormField from "./form/FormField";
-import FormButton from "./form/FormButton";
+import FormField from "../form/FormField";
+import FormButton from "../form/FormButton";
 import axios from "axios";
 import { Formik, Form } from "formik";
-import { categorySchema } from "../schemas";
+import { productSchema } from "../../schemas";
 import Modal from "react-modal";
-import Button from "./Button";
-import { customStyles } from "../utils/schemas";
-import Notify from "./Notify";
-import CategoryContext from "../contexts/CategoriesProvider";
-import { useAuthContext } from "../contexts/AuthProvider";
+import Button from "../Button";
+import { customStyles } from "../../utils/schemas";
+import Notify from "../Notify";
+import ProductContext from "../../contexts/ProductsProvider";
+import { useAuthContext } from "../../contexts/AuthProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
 Modal.setAppElement("div");
 
-export default function CategoryModal({
-  modal,
-  setModal,
-  category,
-  setCategory,
-}) {
+export default function ProductModal({ modal, setModal, product, setProduct }) {
   const { token } = useAuthContext();
-  const { refreshCategories } = useContext(CategoryContext);
+
+  const { refreshProducts } = useContext(ProductContext);
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (modal.categoryID && modal.mode == "edit") {
+    if (modal.productID && modal.mode == "edit") {
       setLoading(true);
       axios
-        .get(`${url}/categories/${modal.categoryID}`, {
+        .get(`${url}/products/${modal.productID}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
             Accept: "application/vnd.api+json",
             "Content-Type": "application/vnd.api+json",
+            Authorization: `Bearer ${token}`,
           },
         })
         .then(({ data }) => {
           console.log(data);
-          console.log(data.data.category);
-          setCategory(data.data.category);
+          console.log(data.data.product);
+          setProduct(data.data.product);
           setLoading(false);
         })
         .catch(() => setLoading(false));
     }
-  }, [modal.isOpen, modal.categoryID, modal.mode]);
+  }, [modal.isOpen, modal.productID, modal.mode]);
 
   const closeModal = () => {
     setModal((prev) => {
-      return { ...prev, isOpen: false, categoryID: null, mode: null };
+      return { ...prev, isOpen: false, productID: null, mode: null };
     });
   };
 
@@ -60,7 +56,7 @@ export default function CategoryModal({
       if (modal.mode == "edit") {
         console.log("Edit");
         response = await axios.patch(
-          `${url}/categories/${modal.categoryID}`,
+          `${url}/products/${modal.productID}`,
           {
             ...values,
           },
@@ -75,7 +71,7 @@ export default function CategoryModal({
       } else {
         console.log("New");
         response = await axios.post(
-          `${url}/categories`,
+          `${url}/products`,
           {
             ...values,
           },
@@ -92,7 +88,7 @@ export default function CategoryModal({
       console.log(error);
     } finally {
       closeModal();
-      refreshCategories();
+      refreshProducts();
       setSubmitting(false);
     }
   };
@@ -102,38 +98,53 @@ export default function CategoryModal({
       onAfterClose={closeModal}
       onRequestClose={() => setModal(false)}
       style={customStyles}
-      contentLabel="Category"
+      contentLabel="Product"
     >
       {loading ? (
         <div>Loading ..... </div>
       ) : (
         <Formik
           enableReinitialize={true}
-          initialValues={category}
+          initialValues={product}
           onSubmit={handleSubmit}
-          validationSchema={categorySchema}
+          validationSchema={productSchema}
         >
           {({ isSubmitting, isValid, dirty, errors, touched }) => (
-            <Form className="flex flex-col w-full">
+            <Form className="flex justify-between w-full">
               <div className="w-full">
                 <label htmlFor="id">ID: </label>
                 <input
                   name="id"
                   id="id"
                   type="text"
-                  value={modal.categoryID}
+                  value={modal.productID}
                   readOnly
                 />
                 <FormField name="name" />
+                <FormField name="description" />
+                <FormField name="category" />
                 <FormField name="subcategory" />
+                <FormField name="price" type="number" />
+                <FormField name="discount_percentage" type="number" />
+                {/* <FormField name="Rating" /> */}
+                <FormField name="stock" type="number" />
+                <FormField name="brand" />
               </div>
-              <div className="py-4">
-                <FormButton disabled={isSubmitting} href="#" type="submit">
-                  {modal.mode == "edit" ? "Update" : "Add"} Category
-                </FormButton>
-                <Button onClick={closeModal} type="delete">
-                  Cancel
-                </Button>
+              <div className="w-full">
+                <FormField name="sku" />
+                <FormField name="weight" type="number" />
+                <FormField name="shipping_information" />
+                <FormField name="availability_status" />
+                <FormField name="image_url" />
+                <FormField name="thumbnail_url" />
+                <div className="py-4">
+                  <FormButton disabled={isSubmitting} href="#" type="submit">
+                    {modal.mode == "edit" ? "Update" : "Add"} Product
+                  </FormButton>
+                  <Button onClick={closeModal} type="delete">
+                    Cancel
+                  </Button>
+                </div>
               </div>
             </Form>
           )}

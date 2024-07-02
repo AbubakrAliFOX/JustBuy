@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import ProductContext from "../contexts/ProductsProvider";
+import ProductContext from "../../contexts/ProductsProvider";
 import axios from "axios";
 import ProductRow from "./ProductRow";
-import Button from "./Button";
+import Button from "../Button";
 import ProductModal from "./ProductModal";
 
 const url = import.meta.env.VITE_MAIN_URL;

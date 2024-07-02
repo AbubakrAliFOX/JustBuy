@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import { Link } from "react-router-dom";
-import FormButton from "./form/FormButton";
+import FormButton from "../form/FormButton";
 import DeleteProductModal from "./DeleteProductModal";
 
 export default function ProductRow({ data, setModal }) {

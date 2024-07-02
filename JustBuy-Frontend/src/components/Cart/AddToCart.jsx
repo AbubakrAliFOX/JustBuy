@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import CartContext from "../contexts/CartProvider";
-import { useAuthContext } from "../contexts/AuthProvider";
+import CartContext from "../../contexts/CartProvider";
+import { useAuthContext } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useVerificationContext } from "../contexts/VerificationProvider";
+import { useVerificationContext } from "../../contexts/VerificationProvider";
 
 export default function AddToCart({ name, price }) {
   const { cart, setCart } = useContext(CartContext);

@@ -28,7 +28,7 @@ export default function CartItem({ name, price, qty, setCart }) {
         <img
           className="cursor-pointer w-6 h-6"
           onClick={handleClick}
-          src="minus.svg"
+          src="https://www.svgrepo.com/show/532960/minus.svg"
           alt="minus sign"
           id="minus"
         />
@@ -36,7 +36,7 @@ export default function CartItem({ name, price, qty, setCart }) {
         <img
           className="cursor-pointer w-6 h-6"
           onClick={handleClick}
-          src="plus.svg"
+          src="https://www.svgrepo.com/show/532997/plus-large.svg"
           alt="plus sign"
           id="plus"
         />
@@ -45,7 +45,7 @@ export default function CartItem({ name, price, qty, setCart }) {
         <img
           className="cursor-pointer w-6 h-6"
           onClick={handleClick}
-          src="trash.svg"
+          src="https://www.svgrepo.com/show/533020/trash-list-alt.svg"
           alt="trash"
           id="remove"
         />

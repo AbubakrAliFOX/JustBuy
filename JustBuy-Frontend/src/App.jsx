@@ -6,19 +6,19 @@ import NotFound from "./pages/404";
 import Dashboard from "./pages/Dashboard";
 
 import DefaultLayout from "./layout/DefaultLayout";
-import ProductsIndex from "./components/ProductsIndex";
-import CategoriesIndex from "./components/CategoriesIndex";
+import ProductsIndex from "./components/Products/ProductsIndex";
+import CategoriesIndex from "./components/Categories/CategoriesIndex";
 import Index from "./pages/Index";
 import CheckOut from "./pages/CheckOut";
-import ConfirmEmail from "./components/ConfirmEmail";
-import { RequireAuth, NotRequireAuth } from "./components/AuthComponents";
-import { RequireVerification } from "./components/VerificationComponents";
-import OrdersDisplay from "./components/OrdersDisplay";
-import OrdersTable from "./components/OrdersTable";
-import EmailVerified from "./components/EmailVerified";
-import { RequireAdmin } from "./components/RequireAdmin";
-import ResetPassword from "./components/ResetPassword";
-import ForgotPassword from "./components/ForgotPassword";
+import ConfirmEmail from "./components/Auth/ConfirmEmail";
+import { RequireAuth, NotRequireAuth } from "./components/Auth/AuthComponents";
+import { RequireVerification } from "./components/Auth/RequireVerification";
+import OrdersDisplay from "./components/Orders/OrdersDisplay";
+import OrdersTable from "./components/Orders/OrdersTable";
+import EmailVerified from "./components/Auth/EmailVerified";
+import { RequireAdmin } from "./components/Auth/RequireAdmin";
+import ResetPassword from "./components/Auth/ResetPassword";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 function App() {
   return (

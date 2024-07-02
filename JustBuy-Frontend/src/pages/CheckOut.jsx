@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import CartContext from "../contexts/CartProvider";
-import CheckOutItem from "../components/CheckOutItem";
+import CheckOutItem from "../components/Cart/CheckOutItem";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Notify from "../components/Notify";
+import OrderContext from "../contexts/OrdersProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
@@ -14,6 +15,8 @@ export default function CheckOut() {
   let totalPrice = 0;
   const natigate = useNavigate();
   const { cart, setCart } = useContext(CartContext);
+
+  const { refreshOrders } = useContext(OrderContext);
 
   useEffect(() => {
     console.log(cart);
@@ -34,6 +37,7 @@ export default function CheckOut() {
       Notify("Your order has been placed successfully", "success");
       console.log(response.data);
       setCart([]);
+      refreshOrders();
       natigate("/");
     } catch (error) {
       Notify("An error occured", "error");

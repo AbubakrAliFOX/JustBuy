@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import NavLink from "./NavLink";
+import NavLink from "../components/Navbar/NavLink";
 
 export default function SideBar() {
   return (
