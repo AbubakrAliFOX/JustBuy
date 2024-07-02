@@ -6,11 +6,13 @@ import axios from "axios";
 const url = import.meta.env.VITE_MAIN_URL;
 import Notify from "../Notify";
 import CategoryContext from "../../contexts/CategoriesProvider";
+import { useAuthContext } from "../../contexts/AuthProvider";
 
 Modal.setAppElement("div");
 
 export default function DeleteCategoryModal({ deleteModal, setDeleteModal }) {
   const { refreshCategories } = useContext(CategoryContext);
+  const { token } = useAuthContext();
 
   const closeModal = () => {
     setDeleteModal((prev) => {
@@ -19,12 +21,21 @@ export default function DeleteCategoryModal({ deleteModal, setDeleteModal }) {
   };
 
   const handleDelete = () => {
+    console.log(deleteModal.categoryID);
     axios
-      .delete(`${url}/categories/${deleteModal.categoryID}`)
+      .delete(`${url}/categories/${deleteModal.categoryID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         closeModal();
+        console.log(data);
         Notify(data.status, "success");
         refreshCategories();
+      })
+      .catch((error) => {
+        console.log("Delete err", error);
       });
   };
 

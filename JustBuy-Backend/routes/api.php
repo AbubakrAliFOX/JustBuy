@@ -28,7 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
     // User Wishlist Routes
     Route::post('/wishlist', [WishlistController::class, 'addToWishlist']);

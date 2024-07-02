@@ -6,11 +6,13 @@ import axios from "axios";
 const url = import.meta.env.VITE_MAIN_URL;
 import Notify from "../Notify";
 import ProductContext from "../../contexts/ProductsProvider";
+import { useAuthContext } from "../../contexts/AuthProvider";
 
 Modal.setAppElement("div");
 
 export default function DeleteProductModal({ deleteModal, setDeleteModal }) {
   const { refreshProducts } = useContext(ProductContext);
+  const { token } = useAuthContext();
 
   const closeModal = () => {
     setDeleteModal((prev) => {
@@ -20,7 +22,11 @@ export default function DeleteProductModal({ deleteModal, setDeleteModal }) {
 
   const handleDelete = () => {
     axios
-      .delete(`${url}/products/${deleteModal.productID}`)
+      .delete(`${url}/products/${deleteModal.productID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(({ data }) => {
         closeModal();
         Notify(data.status, "success");

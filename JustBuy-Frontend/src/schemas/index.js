@@ -49,7 +49,7 @@ export const categorySchema = Yup.object({
     .required("Name is required"),
   subcategory: Yup.string()
     .min(2, "Subcategory is too short")
-    .max(30, "Subcategory is too Long!")
+    .max(200, "Subcategory is too Long!")
     .required("Subcategory is required"),
 });
 

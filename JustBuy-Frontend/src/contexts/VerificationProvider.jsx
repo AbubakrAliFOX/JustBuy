@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
@@ -11,6 +12,8 @@ export const VerificationProvider = ({ children }) => {
     String(localStorage.getItem("EmailVerified") == 1)
   );
   const { token } = useAuthContext();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("EmailVerified", isEmailVerified);
