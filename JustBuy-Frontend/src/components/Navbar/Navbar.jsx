@@ -60,12 +60,20 @@ export default function Navbar() {
             Settings
           </Link>
           {!isAdmin && (
-            <Link
-              className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
-              to="/verified/orders"
-            >
-              My Orders
-            </Link>
+            <>
+              <Link
+                className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+                to="/verified/orders"
+              >
+                My Orders
+              </Link>
+              <Link
+                className="h-12 py-3 px-6 mx-3 rounded-lg bg-purple-700 hover:opacity-80 text-white cursor-pointer"
+                to="/verified/wishlist"
+              >
+                My Wishlist
+              </Link>
+            </>
           )}
           <Button onClick={handleLogout}>Logout</Button>
         </div>

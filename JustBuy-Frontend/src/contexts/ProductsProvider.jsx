@@ -17,9 +17,6 @@ export const ProductProvider = ({ children }) => {
   });
 
   const refreshProducts = () => {
-    // let completeUrl = search.searchTerm
-    //   ? `${url}/products?q=${search.searchTerm}`
-    //   : `${url}/products`;
     axios
       .get(
         `${url}/products?q=${search.searchTerm}&min=${search.minPrice}&max=${search.maxPrice}`,

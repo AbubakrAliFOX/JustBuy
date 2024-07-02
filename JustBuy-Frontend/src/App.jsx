@@ -19,6 +19,7 @@ import EmailVerified from "./components/Auth/EmailVerified";
 import { RequireAdmin } from "./components/Auth/RequireAdmin";
 import ResetPassword from "./components/Auth/ResetPassword";
 import ForgotPassword from "./components/Auth/ForgotPassword";
+import Wishlist from "./components/Wishlist/Wishlist";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               {/* Requires Verification */}
 
               <Route path="orders" element={<OrdersDisplay />} />
+              <Route path="wishlist" element={<Wishlist />} />
               <Route path="checkout" element={<CheckOut />} />
               <Route path="dashboard" element={<RequireAdmin />}>
                 {/* Requires being Admin */}

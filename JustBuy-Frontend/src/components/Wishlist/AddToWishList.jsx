@@ -3,9 +3,11 @@ import CartContext from "../../contexts/CartProvider";
 import { useAuthContext } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useVerificationContext } from "../../contexts/VerificationProvider";
+import WishlistContext from "../../contexts/WishlistProvider";
 
-export default function AddToCart({ name, price }) {
+export default function AddToWishList({ product_id }) {
   const { cart, setCart } = useContext(CartContext);
+  const { AddToWishlist } = useContext(WishlistContext);
   const { token } = useAuthContext();
   const { isEmailVerified } = useVerificationContext();
   const navigate = useNavigate();
@@ -13,17 +15,8 @@ export default function AddToCart({ name, price }) {
   const handleClick = () => {
     if (token) {
       if (isEmailVerified) {
-        setCart((prev) => {
-          if (prev?.find((el) => el.name === name)) {
-            let currEl = prev.find((el) => el.name === name);
-            return [
-              ...prev.filter((el) => el.name !== name),
-              { name, price: price, qty: currEl.qty + 1 },
-            ];
-          } else {
-            return [...prev, { name, price: price, qty: 1 }];
-          }
-        });
+        console.log("Pro Id", product_id);
+        AddToWishlist(product_id);
       } else {
         navigate("/email/verify");
       }
@@ -35,9 +28,9 @@ export default function AddToCart({ name, price }) {
   return (
     <a
       onClick={handleClick}
-      className="w-8/12 rounded-l-lg rounded-bl-lg border border-l-white bg-purple-700 hover:opacity-80 text-white cursor-pointer flex justify-center"
+      className="w-4/12 rounded-r-lg border border-l-white  bg-purple-700 hover:opacity-80 text-white cursor-pointer flex justify-center"
     >
-      <img className="w-full h-8 my-1.5" src="cart.svg" alt="Cart" />
+      <img className="w-full h-8 my-1.5" src="empty-heart.svg" alt="Cart" />
     </a>
   );
 }

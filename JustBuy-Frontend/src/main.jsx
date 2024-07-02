@@ -12,6 +12,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App.jsx";
 import { OrdersProvider } from "./contexts/OrdersProvider.jsx";
+import { WishlistProvider } from "./contexts/WishlistProvider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -21,9 +22,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <ProductProvider>
             <CategoryProvider>
               <CartProvider>
-                <OrdersProvider>
-                  <App />
-                </OrdersProvider>
+                <WishlistProvider>
+                  <OrdersProvider>
+                    <App />
+                  </OrdersProvider>
+                </WishlistProvider>
               </CartProvider>
             </CategoryProvider>
           </ProductProvider>

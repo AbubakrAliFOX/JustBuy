@@ -1,5 +1,6 @@
 import React from "react";
 import AddToCart from "../Cart/AddToCart";
+import AddToWishList from "../Wishlist/AddToWishList";
 
 export default function ProductCard({ data }) {
   const priceAfterDiscount = (
@@ -23,6 +24,7 @@ export default function ProductCard({ data }) {
       </h3>
       <div className="flex flex-row justify-start my-2 px-3">
         <AddToCart name={data.name} price={priceAfterDiscount} />
+        <AddToWishList product_id={data.id} />
       </div>
     </div>
   );
