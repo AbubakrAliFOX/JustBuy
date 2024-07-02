@@ -9,9 +9,8 @@ const url = import.meta.env.VITE_MAIN_URL;
 const WishlistContext = createContext(null);
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlist, setWishlist] = useState();
-  //   const { refreshProducts } = useContext(ProductContext);
-  const { token } = useAuthContext();
+  const [wishlist, setWishlist] = useState([]);
+  const { token, isAdmin } = useAuthContext();
 
   const refreshWishlist = () => {
     axios
@@ -23,8 +22,6 @@ export const WishlistProvider = ({ children }) => {
       .then(({ data }) => {
         console.log(data.data.wishlist);
         setWishlist(data.data.wishlist);
-        // refreshProducts();
-        // setWishlist(response.data.data.orders);
       })
       .catch(({ response }) => {
         console.log(response.data.message);
@@ -80,13 +77,31 @@ export const WishlistProvider = ({ children }) => {
       });
   };
 
+  const AdminWishlist = () => {
+    axios
+      .get(`${url}/wishlist/by-category`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        console.log(data.data.wishlistByCategory);
+        setWishlist(data.data.wishlistByCategory);
+      })
+      .catch(({ response }) => {
+        console.log(response.data.message);
+        // Notify(response.data.message, "error");
+      });
+  };
+
   useEffect(() => {
     refreshWishlist();
+    isAdmin && AdminWishlist();
   }, []);
 
   return (
     <WishlistContext.Provider
-      value={{ wishlist, AddToWishlist, DeleteFromWishlist }}
+      value={{ wishlist, AddToWishlist, DeleteFromWishlist, AdminWishlist }}
     >
       {children}
     </WishlistContext.Provider>

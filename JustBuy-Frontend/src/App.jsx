@@ -20,6 +20,7 @@ import { RequireAdmin } from "./components/Auth/RequireAdmin";
 import ResetPassword from "./components/Auth/ResetPassword";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import Wishlist from "./components/Wishlist/Wishlist";
+import AdminWishlist from "./components/Wishlist/AdminWishlist";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
                 {/* Requires being Admin */}
 
                 <Route path="products" element={<ProductsIndex />} />
+                <Route path="wishlist" element={<AdminWishlist />} />
                 <Route path="categories" element={<CategoriesIndex />} />
                 <Route path="orders" element={<OrdersTable />} />
               </Route>

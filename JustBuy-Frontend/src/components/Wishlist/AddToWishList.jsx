@@ -4,19 +4,25 @@ import { useAuthContext } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useVerificationContext } from "../../contexts/VerificationProvider";
 import WishlistContext from "../../contexts/WishlistProvider";
+import Notify from "../Notify";
 
 export default function AddToWishList({ product_id }) {
   const { cart, setCart } = useContext(CartContext);
   const { AddToWishlist } = useContext(WishlistContext);
-  const { token } = useAuthContext();
+  const { token, isAdmin } = useAuthContext();
   const { isEmailVerified } = useVerificationContext();
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (token) {
       if (isEmailVerified) {
-        console.log("Pro Id", product_id);
-        AddToWishlist(product_id);
+        if (!isAdmin) {
+          console.log("Pro Id", product_id);
+          AddToWishlist(product_id);
+        } else {
+          Notify("You are permitted to do this action", "error");
+          navigate("/");
+        }
       } else {
         navigate("/email/verify");
       }

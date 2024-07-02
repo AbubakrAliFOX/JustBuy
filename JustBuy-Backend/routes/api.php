@@ -43,6 +43,7 @@ Route::middleware(['auth:sanctum', 'verified', 'ability:admin'])->group(function
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
     // Route::get('/orders', [OrderController::class, 'user_orders']);
 
+    Route::get('/wishlist/by-category', [WishlistController::class, 'viewWishlistByCategory']);
 
 });
 
@@ -68,6 +69,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/wishlist', [WishlistController::class, 'addToWishlist']);
     Route::get('/wishlist', [WishlistController::class, 'viewWishlist']);
     Route::delete('/wishlist/{productId}', [WishlistController::class, 'removeFromWishlist']);
-    Route::get('/wishlist/by-category', [WishlistController::class, 'viewWishlistByCategory']);
 });
 

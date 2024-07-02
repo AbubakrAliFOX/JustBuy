@@ -15,6 +15,7 @@ export default function WishlistItem({ data }) {
   const handleClick = () => {
     DeleteFromWishlist(data.id);
   };
+
   return (
     <div className="w-full mb-3 pr-6 pl-1 py-3 rounded-lg flex justify-between items-center bg-stone-100">
       <div className="w-36">{data.name}</div>

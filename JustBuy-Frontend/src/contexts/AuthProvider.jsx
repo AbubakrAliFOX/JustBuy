@@ -31,23 +31,27 @@ export const AuthProvider = ({ children }) => {
         },
       })
       .then(({ data }) => {
-        setIsAdmin(data.data);
-        console.log("Is Admin");
-        return true;
+        setIsAdmin(true);
+        console.log("Is Admin", data.data);
       })
       .catch((error) => {
         setIsAdmin(false);
         console.log("Not Admin", error);
-        return false;
       });
   };
 
   const redirectIfNotAdmin = () => {
-    if (!checkIsAdmin()) {
-      Notify("You are not authorized", "error");
-      navigate("/");
-    }
+    // debugger;
+    // if (!localIsAdmin) {
+    //   console.log("Is admin valueeee", localIsAdmin);
+    //   Notify("You are not authorized", "error");
+    //   navigate("/");
+    // }
   };
+
+  useEffect(() => {
+    checkIsAdmin();
+  }, [token]);
 
   return (
     <AuthContext.Provider

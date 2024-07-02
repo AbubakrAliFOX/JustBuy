@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Traits\HttpRequests;
 use Auth;
 use Illuminate\Http\Request;
@@ -55,21 +56,25 @@ class WishlistController extends Controller
 
     public function viewWishlistByCategory()
     {
-        $user = Auth::user();
-        $wishlist = $user->wishlist()
-            ->select(
-                'products.id',
-                'products.name',
-                'products.price',
-                'products.discount_percentage',
-                'products.shipping_information',
-                'products.availability_status',
-                'categories.name as category_name'
-            )
-            ->join('categories', 'products.category_id', '=', 'categories.id')
+        $wishlists = Product::with('category')
+            ->whereHas('wishlists')
             ->get()
-            ->groupBy('category_name');
+            ->groupBy('category.name');
 
-        return $this->success(['wishlistByCategory' => $wishlist]);
+        $result = $wishlists->map(function ($products, $category) {
+            return [
+                'category' => $category,
+                'products' => $products->map(function ($product) {
+                    return [
+                        'product_id' => $product->id,
+                        'product_name' => $product->name,
+                    ];
+                })->values()
+            ];
+        })->values();
+
+        return $this->success(['wishlistByCategory' => $result]);
+
+
     }
 }

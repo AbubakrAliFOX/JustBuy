@@ -13,7 +13,7 @@ export const RequireVerification = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    checkIsEmailVerified;
+    checkIsEmailVerified();
   }, [isEmailVerified, token]);
 
   // useEffect(() => {
