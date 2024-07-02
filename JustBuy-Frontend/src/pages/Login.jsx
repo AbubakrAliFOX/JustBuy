@@ -3,8 +3,6 @@ import React, { useContext } from "react";
 import FormField from "../components/form/FormField";
 import FormButton from "../components/form/FormButton";
 import { loginSchema } from "../schemas";
-import axios from "axios";
-import Notify from "../components/Notify";
 import bindUser from "../utils/bindUser";
 import { useAuthContext } from "../contexts/AuthProvider";
 import { Link } from "react-router-dom";

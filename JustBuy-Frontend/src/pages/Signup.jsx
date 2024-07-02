@@ -14,7 +14,6 @@ export default function Signup() {
     if (authData) {
       setUser(authData.user);
       setToken(authData.token);
-      // isEmailVerified
     }
   };
 

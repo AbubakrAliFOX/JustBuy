@@ -3,7 +3,6 @@ import { Navigate, Route, Routes, createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/404";
-import Dashboard from "./pages/Dashboard";
 
 import DefaultLayout from "./layout/DefaultLayout";
 import ProductsIndex from "./components/Products/ProductsIndex";

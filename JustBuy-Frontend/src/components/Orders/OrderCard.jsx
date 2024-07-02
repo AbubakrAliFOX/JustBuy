@@ -33,12 +33,6 @@ export default function OrderCard({ data, isAdmin }) {
             <p>{data.user_id}</p>
           </div>
         )}
-        {/* <div className="mt-2 mr-6 mb-2">
-          <p>
-            <b>Deliver To</b>
-          </p>
-          <p>{userAddress}</p>
-        </div> */}
       </div>
       <div className="w-full h-full rounded text-lg mt-3 px-2">
         {data.products.map((el, idx) => (

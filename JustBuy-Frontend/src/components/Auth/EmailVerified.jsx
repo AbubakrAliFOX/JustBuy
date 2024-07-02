@@ -12,8 +12,8 @@ export default function EmailVerified() {
   const [message, setMessage] = useState("");
   const { token } = useAuthContext();
 
-  console.log("ID:", id);
-  console.log("Hash", hash);
+  // console.log("ID:", id);
+  // console.log("Hash", hash);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);

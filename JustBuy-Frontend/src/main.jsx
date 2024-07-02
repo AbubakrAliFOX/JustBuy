@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { RouterProvider } from "react-router-dom";
-// import router from "./Router.jsx";
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
 import { ProductProvider } from "./contexts/ProductsProvider.jsx";
 import { CategoryProvider } from "./contexts/CategoriesProvider.jsx";

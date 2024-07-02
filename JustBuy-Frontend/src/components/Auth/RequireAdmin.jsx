@@ -7,7 +7,7 @@ import axios from "axios";
 const url = import.meta.env.VITE_MAIN_URL;
 
 export const RequireAdmin = () => {
-  const { token, isAdmin, setIsAdmin, redirectIfNotAdmin } = useAuthContext();
+  const { token, isAdmin, setIsAdmin } = useAuthContext();
 
   const navigate = useNavigate();
 

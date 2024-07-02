@@ -22,7 +22,7 @@ export const RequireAuth = () => {
         setUser(response.data);
       })
       .catch(() => {
-        console.log("errrr");
+        console.log("error");
       });
   }, []);
 

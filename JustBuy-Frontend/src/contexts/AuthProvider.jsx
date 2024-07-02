@@ -40,15 +40,6 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const redirectIfNotAdmin = () => {
-    // debugger;
-    // if (!localIsAdmin) {
-    //   console.log("Is admin valueeee", localIsAdmin);
-    //   Notify("You are not authorized", "error");
-    //   navigate("/");
-    // }
-  };
-
   useEffect(() => {
     checkIsAdmin();
   }, [token]);
@@ -63,7 +54,6 @@ export const AuthProvider = ({ children }) => {
         isAdmin,
         setIsAdmin,
         checkIsAdmin,
-        redirectIfNotAdmin,
       }}
     >
       {children}

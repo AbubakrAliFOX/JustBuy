@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import CartContext from "../../contexts/CartProvider";
 import { useAuthContext } from "../../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import { useVerificationContext } from "../../contexts/VerificationProvider";
@@ -7,7 +6,6 @@ import WishlistContext from "../../contexts/WishlistProvider";
 import Notify from "../Notify";
 
 export default function AddToWishList({ product_id }) {
-  const { cart, setCart } = useContext(CartContext);
   const { AddToWishlist } = useContext(WishlistContext);
   const { token, isAdmin } = useAuthContext();
   const { isEmailVerified } = useVerificationContext();

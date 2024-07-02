@@ -11,22 +11,19 @@ import Notify from "../Notify";
 const url = import.meta.env.VITE_MAIN_URL;
 
 export default function ResetPassword() {
-  // const { token: authToken } = useAuthContext();
-
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
   const email = searchParams.get("email");
-  console.log("token:", token);
-  // console.log("auth token:", authToken);
-  console.log("email:", email);
+  // console.log("token:", token);
+  // console.log("email:", email);
 
   const handleSubmit = (values, { setSubmitting }) => {
     const requestData = { ...values, token, email };
     const password = values.password;
     const password_confirmation = values.password_confirmation;
-    console.log("data:", requestData);
+    // console.log("data:", requestData);
     axios
       .post(
         `${url}/password/reset`,

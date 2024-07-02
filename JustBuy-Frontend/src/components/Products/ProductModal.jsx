@@ -50,7 +50,6 @@ export default function ProductModal({ modal, setModal, product, setProduct }) {
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    // e.preventDefault();
     try {
       let response;
       if (modal.mode == "edit") {
@@ -126,7 +125,6 @@ export default function ProductModal({ modal, setModal, product, setProduct }) {
                 <FormField name="subcategory" />
                 <FormField name="price" type="number" />
                 <FormField name="discount_percentage" type="number" />
-                {/* <FormField name="Rating" /> */}
                 <FormField name="stock" type="number" />
                 <FormField name="brand" />
               </div>

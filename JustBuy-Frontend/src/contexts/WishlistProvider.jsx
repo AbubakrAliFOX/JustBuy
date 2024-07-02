@@ -2,7 +2,6 @@ import { createContext, useState, useEffect, useContext } from "react";
 import { useAuthContext } from "./AuthProvider";
 import axios from "axios";
 import Notify from "../components/Notify";
-// import ProductContext from "./ProductsProvider";
 
 const url = import.meta.env.VITE_MAIN_URL;
 
@@ -25,7 +24,6 @@ export const WishlistProvider = ({ children }) => {
       })
       .catch(({ response }) => {
         console.log(response.data.message);
-        // Notify(response.data.message, "error");
       });
   };
 
@@ -43,8 +41,6 @@ export const WishlistProvider = ({ children }) => {
       .then(({ data }) => {
         console.log(data);
         Notify(data.message, "success");
-        // refreshProducts();
-        // setWishlist(response.data.data.orders);
       })
       .catch(({ response }) => {
         console.log(response.data.message);
@@ -65,8 +61,6 @@ export const WishlistProvider = ({ children }) => {
       .then(({ data }) => {
         console.log(data);
         Notify(data.message, "success");
-        // refreshProducts();
-        // setWishlist(response.data.data.orders);
       })
       .catch(({ response }) => {
         console.log(response.data.message);
@@ -90,7 +84,6 @@ export const WishlistProvider = ({ children }) => {
       })
       .catch(({ response }) => {
         console.log(response.data.message);
-        // Notify(response.data.message, "error");
       });
   };
 

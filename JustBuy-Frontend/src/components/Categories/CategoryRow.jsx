@@ -11,12 +11,6 @@ export default function CategoryRow({ data, setModal }) {
     categoryID: null,
   });
 
-  //   const handleDisplayProduct = () => {
-  //     setModal((prev) => {
-  //       return { categoryID: data.id, isOpen: true, mode: "display" };
-  //     });
-  //   };
-
   const handleEdit = () => {
     setModal((prev) => {
       return { categoryID: data.id, isOpen: true, mode: "edit" };

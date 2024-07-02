@@ -26,7 +26,6 @@ export default function DeleteCategoryModal({ deleteModal, setDeleteModal }) {
         Notify(data.status, "success");
         refreshCategories();
       });
-    //   .catch(() => setLoading(false));
   };
 
   return (

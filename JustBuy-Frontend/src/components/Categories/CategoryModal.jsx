@@ -54,7 +54,6 @@ export default function CategoryModal({
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    // e.preventDefault();
     try {
       let response;
       if (modal.mode == "edit") {

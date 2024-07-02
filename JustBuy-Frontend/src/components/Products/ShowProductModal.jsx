@@ -29,7 +29,6 @@ export default function ShowProductModal() {
             <ProductItem name="subcategory" />
             <ProductItem name="price" type="number" />
             <ProductItem name="discount_percentage" type="number" />
-            {/* <ProductItem name="Rating" /> */}
             <ProductItem name="stock" type="number" />
             <ProductItem name="brand" />
           </div>
